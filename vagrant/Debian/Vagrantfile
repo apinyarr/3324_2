@@ -16,19 +16,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     # Network config
-    config.vm.network "private_network", ip: "169.254.219.180"
+    config.vm.network :private_network, ip: "169.254.219.180"
 
     # for slow laptops
     config.vm.boot_timeout = 600
 
     # Sync Folder config
     # config.vm.synced_folder "./test-folder", "/home/vagrant/myFolder", owner: "vagrant", group: "vagrant"
+    config.vm.synced_folder "./test-folder", "/home/vagrant/myFolder", owner: "vagrant", group: "vagrant"
 
     # Creating a box_owner file to post the report to slack
     # config.vm.provision "shell", privileged: false, inline: "echo "+`whoami`.chomp+"@"+`hostname`.chomp+" > /home/vagrant/box_owner"
 
     # Executing a shell script
     # config.vm.provision "shell", privileged: true, path: "script.sh"
+    config.vm.provision "shell", privileged: true, path: "./myFolder/script.sh"
 
     # VM Provision config
     # config.vm.provision "file", source: "./test-folder", destination: "/home/vagrant/test-folder"
